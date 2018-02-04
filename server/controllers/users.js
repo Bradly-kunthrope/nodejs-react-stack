@@ -38,6 +38,30 @@ module.exports = {
       })
       .catch((error) => res.status(500).json(error));
   },
+  // login(req, res) {
+  //   return User.findOne({
+  //     where:
+  //       {
+  //         username: req.body.username,
+  //         password: req.body.password
+  //       }
+  //   })
+  //     .then(user => {
+  //       if (user) {
+  //         return res.status(404).json({
+  //           message: 'Invalid username or password. Try again.',
+  //         });
+  //       }
+  //         return
+  //       var myToken = jwt.sign({ user: req.params.id },
+  //         'secret',
+  //         { expiresIn: 24 * 60 * 60 });
+  //       res.send(200, {
+  //         'token': myToken
+  //       });
+  //     })
+  //     .catch(error => res.status(500).json(error));
+  //   },
 
   update(req, res) {
     return User
