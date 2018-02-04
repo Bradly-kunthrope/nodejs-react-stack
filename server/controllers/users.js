@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Creserve = require('../models').Creserve;
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   create(req, res) {
@@ -38,30 +39,29 @@ module.exports = {
       })
       .catch((error) => res.status(500).json(error));
   },
-  // login(req, res) {
-  //   return User.findOne({
-  //     where:
-  //       {
-  //         username: req.body.username,
-  //         password: req.body.password
-  //       }
-  //   })
-  //     .then(user => {
-  //       if (user) {
-  //         return res.status(404).json({
-  //           message: 'Invalid username or password. Try again.',
-  //         });
-  //       }
-  //         return
-  //       var myToken = jwt.sign({ user: req.params.id },
-  //         'secret',
-  //         { expiresIn: 24 * 60 * 60 });
-  //       res.send(200, {
-  //         'token': myToken
-  //       });
-  //     })
-  //     .catch(error => res.status(500).json(error));
-  //   },
+  login(req, res) {
+    return User.findOne({
+      where: {
+        username: req.body.username,
+        password: req.body.password
+      },
+
+    })
+    .then(user => {
+      if (!user){
+        return res.status(404).json({
+          message: 'login again',
+        });
+      }
+      return jwt.sign({ user }, 'secretkey', { expiresIn: '30s' }, (err, token) => {
+        res.json({
+          token
+        });
+      });
+    }
+      )
+      .catch((error) => res.status(500).json(error));
+      },
 
   update(req, res) {
     return User
@@ -101,4 +101,23 @@ module.exports = {
       })
       .catch((error) => res.status(500).json(error));
   },
+  verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if (typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
+
+}
 };
