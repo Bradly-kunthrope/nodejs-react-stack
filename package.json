@@ -4,24 +4,34 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm run start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "express": "^4.14.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^4.3.0",
     "jsonwebtoken": "^8.1.1",
-    "morgan": "^1.7.0",
+    "morgan": "^1.9.0",
     "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^6.2.4",
+    "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.1.0"
+    "sequelize": "^4.32.1",
+    "sequelize-cli": "^3.2.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.10.2",
