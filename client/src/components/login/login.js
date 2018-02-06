@@ -19,6 +19,17 @@ export default class Login extends Component {
         super(props, context);
     }
 
+    state = {
+        email: '',
+        password: '',
+    };
+
+    onChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
+
     responseGoogle(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
         var googleId = googleUser.getId();
@@ -28,10 +39,50 @@ export default class Login extends Component {
         //anything else you want to do(save to localStorage)...
     }
 
+    onSubmit = e => {
+        e.preventDefault();
+        try {
+            axios.post('http://localhost:8000/api/login', {
+                username: this.state.username,
+                password: this.state.password
+            }
+            .then(response => {
+                console.log(response, 'logged in!');
+            })
+        )
+        } catch (e) {
+            console.log('login failed!');
+            console.log(e);
+        }
+    };
+    componentDidMount() {
+
+    }
     render() {
         return (
-            <div>
-                <GoogleLogin socialId="300506145313-5ci2p704h9lvb9vbk2m4o76bh9jkmjmr.apps.googleusercontent.com"
+            <div className="container">
+                <div className="form-group">
+                <input
+                    name="email"
+                    placeholder="Email"
+                    className="form-control"
+                    onChange={e => this.onChange(e)}
+                    value={this.state.email}
+                />
+                <input
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    className="form-control"
+                    onChange={e => this.onChange(e)}
+                    value={this.state.password}
+                />
+                <br />
+                <button onClick={(e) => this.onSubmit(e)} type="primary">
+                    Login
+        </button>
+                </div>
+                <Icon name='google' /><GoogleLogin socialId="300506145313-5ci2p704h9lvb9vbk2m4o76bh9jkmjmr.apps.googleusercontent.com"
                     className="google-login"
                     scope="profile"
                     fetchBasicProfile={false}

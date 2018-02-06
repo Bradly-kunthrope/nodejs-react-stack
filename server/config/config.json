@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "root",
-    "database": "todos-dev",
+    "database": "r_system_dev",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
