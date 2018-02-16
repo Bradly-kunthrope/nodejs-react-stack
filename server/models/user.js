@@ -1,27 +1,40 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    last_name: {
+    lastName: {
       type: DataTypes.STRING,
-      notEmpty: true
+      notEmpty: true,
     },
-    first_name: {
+    firstName: {
       type: DataTypes.STRING,
-      notEmpty: true
+      notEmpty: true,
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isEmail: true
-      }
+      },
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    user_type: {
+    userType: {
       type: DataTypes.STRING,
       notEmpty: true
+    },
+    subject: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    department: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    isCoach: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
   });
   
@@ -29,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Creserve, {
       foreignKey: 'userId',
       as: 'Creserves',
+    });
+    User.hasMany(models.Coach, {
+      foreignKey: 'userId',
+      as: 'Coaches',
     });
   };
   return User;

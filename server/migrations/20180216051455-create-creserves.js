@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Creserves', {
@@ -9,28 +8,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       r_date_start: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         notEmpty: true
       },
       r_date_end: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         notEmpty: true
       },
-      classroom_cl: {
-        type: Sequelize.STRING,
-        notEmpty: true
-      },
-      subject_taught: {
-        type: Sequelize.STRING,
-        notEmpty: true
-      },
-      department: {
-        type: Sequelize.STRING,
-        notEmpty: true
-      },
-      year_level_taught: {
+      grade: {
         type: Sequelize.INTEGER,
-        isIn: [['1', '2', '3', '4']]
+        notEmpty: true
+      },
+      section: {
+        type: Sequelize.STRING,
+        notEmpty: true,
       },
       createdAt: {
         allowNull: false,
@@ -49,6 +40,15 @@ module.exports = {
           as: 'userId',
         },
       },
+      cartLabId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Cartlabs',
+          key: 'id',
+          as: 'cartLabId'
+        }
+      }
     });
   },
   down: (queryInterface, Sequelize) => {

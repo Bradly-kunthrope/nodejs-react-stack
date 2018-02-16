@@ -20,7 +20,8 @@ module.exports = {
         allowNull: false,
         validate: {
           isEmail: true
-        }
+        },
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
@@ -29,6 +30,14 @@ module.exports = {
       user_type: {
         type: Sequelize.STRING,
         notEmpty: true
+      },
+      subject: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      department: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
