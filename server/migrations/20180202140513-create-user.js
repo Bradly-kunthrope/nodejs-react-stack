@@ -7,11 +7,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      last_name: {
+      lastName: {
         type: Sequelize.STRING,
         notEmpty: true
       },
-      first_name: {
+      firstName: {
         type: Sequelize.STRING,
         notEmpty: true
       },
@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      user_type: {
+      userType: {
         type: Sequelize.STRING,
         notEmpty: true
       },
@@ -38,6 +38,10 @@ module.exports = {
       department: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      isCoach: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

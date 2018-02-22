@@ -24,10 +24,24 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
 
+    Creserve.hasOne(models.Cappointment, {
+      foreignKey: 'creserveId',
+      onDelete: 'CASCADE'
+    }); 
+
     Creserve.hasOne(models.Cartlab, {
       foreignKey: 'cartLabId',
       onDelete: 'CASCADE',
     });
+    Creserve.belongsTo(models.AvReservation, {
+      foreignKey: 'creserveId',
+      onDelete: 'CASCADE',
+    });
+    Creserve.hasOne(models.ReservationHistory, {
+      foreignKey: 'creserveId',
+      onDelete: 'CASCADE',
+    })
+
   };
   return Creserve;
 };

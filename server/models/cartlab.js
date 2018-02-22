@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     cartNo: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
       
     },
     specs: {
@@ -46,7 +47,11 @@ module.exports = (sequelize, DataTypes) => {
     currentStatus: {
       type: DataTypes.TEXT,
       allowNull: false,
-      
+    },
+    serialNo: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      allowNull: false
     }
 
   });
@@ -61,6 +66,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'cartLabId',
       onDelete: 'CASCADE',
     });
+    Cartlab.hasMany(models.Ipadmac, {
+      foreignKey: 'itemUnitNo',
+      onDelete: 'CASCADE',
+    })
   };
   return Cartlab;
 };

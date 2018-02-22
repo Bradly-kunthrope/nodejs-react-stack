@@ -15,7 +15,7 @@ module.exports = {
       cartNo: {
         type: Sequelize.STRING,
         allowNull: false,
-
+        unique: true
       },
       specs: {
         type: Sequelize.TEXT,
@@ -63,14 +63,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      // serialNo: {
-      //   type: Sequelize.INTEGER,
-      //   onDelete: 'CASCADE',
-      //   references: {
-      //     model: 'Creserves',
-      //     key: ''
-      //   }
-      // }
+      serialNo: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        allowNull: false
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
