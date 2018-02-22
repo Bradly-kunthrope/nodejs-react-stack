@@ -26,6 +26,7 @@ module.exports = {
           key: 'id',
           as: 'creserveId',
         },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
